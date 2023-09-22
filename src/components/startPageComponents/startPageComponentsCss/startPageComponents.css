@@ -1,0 +1,28 @@
+#date-time-block {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#date-block {
+    background-color: azure;
+    color: black;
+    font-size: 20px;
+    width: 120px;
+    height: 20px;
+}
+
+.station-text {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.station-input {
+    width: 300px;
+    height: 22px;
+    background-color: grey;
+}
+
+.stations-list {
+    display: none;
+}

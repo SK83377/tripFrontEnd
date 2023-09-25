@@ -13,7 +13,10 @@ export interface MainState {
             statn: string
         }
     },
-    statnsList: any,
+    statnsList: {
+        startSt: Array<object>,
+        endSt: Array<object>
+    },
     dateTime: number
   }
   const initialState: MainState = {
@@ -28,7 +31,10 @@ export interface MainState {
             statn: ''
         }
     },
-    statnsList: [],
+    statnsList: {
+        startSt: [],
+        endSt: []
+    },
     dateTime: Date.now()
   }
   
@@ -46,11 +52,13 @@ export interface MainState {
             state.stations[action.payload.stType].statn = action.payload.station
             if (action.payload.id) {
                 state.stations[action.payload.stType].id = action.payload.id
-                state.statnsList = []
+                state.statnsList[action.payload.stType] = []
+            } else {
+                action.payload.station && state.wss.send(JSON.stringify(action.payload))
             }
         },
         saveStatnsList: (state: any, action: PayloadAction<any>) => {
-            state.statnsList = action.payload.stations
+            state.statnsList[action.payload.stType] = action.payload.stations
         },
         setDateTime: (state: any, action: PayloadAction<number>) => {
             state.dateTime = action.payload

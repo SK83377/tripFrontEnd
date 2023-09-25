@@ -26,12 +26,12 @@ const StartPage = () => {
             console.log('message.data: ', message.data);
             if (message.data != "connection established") {
                 const msgData: any = JSON.parse(message.data);
-                console.log('msgData: ', msgData);
+                console.log('msgData: ', msgData)
                 dispatch(saveStatnsList(msgData))
             }
         };
-    },[dispatch]);
-    console.log(useSelector((state: any) => state.main.dateTime))
+    }, [dispatch]);
+
     const stTypes = {
         startSt: "startSt",
         endSt: "endSt"
@@ -41,7 +41,7 @@ const StartPage = () => {
             <StationsChoser stType={stTypes.startSt} />
             <StationsChoser stType={stTypes.endSt} />
             <div id="date-time-block">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateTimePicker
                     value={useSelector((state: any) => dayjs(new Date(state.main.dateTime)))}
                     onChange={(newValue) => dispatch(setDateTime(newValue!.valueOf()))}
@@ -49,7 +49,7 @@ const StartPage = () => {
                     ampmInClock={false}
                     ampm={false}
                 />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
             </div>
             <button>Search</button>
         </div>

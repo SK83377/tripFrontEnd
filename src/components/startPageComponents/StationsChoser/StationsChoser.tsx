@@ -1,4 +1,4 @@
-import { useState, memo } from "react"
+import { memo } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { saveStations } from '../../../redux/mainSlice'
 

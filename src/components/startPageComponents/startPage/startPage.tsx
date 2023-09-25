@@ -1,13 +1,9 @@
-import '../startPageComponentsCss/startPageComponents.css';
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { openWss, saveStatnsList, setDateTime } from '../../../redux/mainSlice';
-import { DateTimePicker } from '@mui/x-date-pickers';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import StationsChoser from '../StationsChoser/StationsChoser';
-import dayjs from 'dayjs';
-import { memo } from "react"
+import '../startPageComponentsCss/startPageComponents.css'
+import { useEffect } from "react"
+import { useDispatch } from 'react-redux'
+import { openWss, saveStatnsList } from '../../../redux/mainSlice'
+import StationsChoser from '../stationsChoser/stationsChoser'
+import DateTimeChoser from '../dateTimeChoser/dateTimeChoser'
 
 
 const StartPage = () => {
@@ -15,22 +11,22 @@ const StartPage = () => {
     const dispatch = useDispatch()
     useEffect(()=>{
         console.log('in StartPage in useEffect')
-        const ws = new WebSocket('ws://192.168.32.4:4117');
-        dispatch(openWss(ws));
+        const ws = new WebSocket('ws://192.168.32.4:4117')
+        dispatch(openWss(ws))
 
-        ws.onopen = () => console.log("ws opened");
+        ws.onopen = () => console.log("ws opened")
         ws.onclose = () => {
-            console.log("ws closed");
+            console.log("ws closed")
         };
         ws.onmessage = (message: any) => {
-            console.log('message.data: ', message.data);
+            console.log('message.data: ', message.data)
             if (message.data != "connection established") {
-                const msgData: any = JSON.parse(message.data);
+                const msgData: any = JSON.parse(message.data)
                 console.log('msgData: ', msgData)
                 dispatch(saveStatnsList(msgData))
             }
         };
-    }, [dispatch]);
+    }, [dispatch])
 
     const stTypes = {
         startSt: "startSt",
@@ -41,19 +37,11 @@ const StartPage = () => {
             <StationsChoser stType={stTypes.startSt} />
             <StationsChoser stType={stTypes.endSt} />
             <div id="date-time-block">
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateTimePicker
-                    value={useSelector((state: any) => dayjs(new Date(state.main.dateTime)))}
-                    onChange={(newValue) => dispatch(setDateTime(newValue!.valueOf()))}
-                    format={"DD.MM.YYYY HH:mm"}
-                    ampmInClock={false}
-                    ampm={false}
-                />
-            </LocalizationProvider> */}
+            <DateTimeChoser />
             </div>
             <button>Search</button>
         </div>
     )
 }
 
-export default StartPage;
+export default StartPage

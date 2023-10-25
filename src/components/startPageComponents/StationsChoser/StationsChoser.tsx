@@ -17,7 +17,7 @@ const StationsChoser = memo<any>(function StationsChoser (stType: any) {
         <>
             <div>
                 <p className="station-text">
-                    Enter start station
+                    Enter {stType.stType == 'startSt' ? 'start' : 'end'} station
                 </p>
                 <input type="text" value={useSelector((state: any) => state.main.stations[stType.stType].statn)} onChange={(e)=>dispatch(saveStations({station: e.target.value, stType: stType.stType}))} className="station-input" />
             </div>
